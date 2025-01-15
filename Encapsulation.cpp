@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 class BankAccount {
 private:
@@ -39,6 +40,7 @@ public:
     void turnOff() {
         std::cout << "Heating system turned off." << std::endl;
     }
+
 };
 
 class Thermostat {
@@ -51,9 +53,17 @@ public:
     double getCurrentTemperature() const {
         return currentTemperature;
     }
+
+    void heatingOnOff(Thermostat thermostat, HeatingSystem heating) {
+        if (thermostat.getCurrentTemperature() < 20.0) {
+            heating.turnOn();
+        }
+        else {
+            heating.turnOff();
+        }
+    }
 };
-#include <iostream>
-#include <string>
+
 
 class Book {
 private:
@@ -144,13 +154,7 @@ int main() {
 
     Thermostat thermostat(18.5);
     HeatingSystem heating;
-
-    if (thermostat.getCurrentTemperature() < 20.0) {
-        heating.turnOn();
-    }
-    else {
-        heating.turnOff();
-    }
+    thermostat.heatingOnOff(thermostat, heating);
     
     //////////////////////////////////////////////////////////////////
     // Exercise 3
