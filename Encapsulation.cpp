@@ -121,9 +121,9 @@ public:
     }
 };
 
-class Game {
+class Enemy {
 public:
-    void enemyAttack(Player& player) {
+    void attack(Player& player) {
         if (player.getHealth() > 0 && player.getAmmo() > 0) {
             player.takeDamage(10);
             player.useAmmo();
@@ -163,10 +163,10 @@ int main() {
     //////////////////////////////////////////////////////////////////
     // Exercise 4
     //////////////////////////////////////////////////////////////////
-    Player player;
-    Game game;
 
-    game.enemyAttack(player); // Player can respond to attack
+    Player player;
+    Enemy enemy;
+    enemy.attack(player); // Player can respond to attack
 
     return 0;
 }
