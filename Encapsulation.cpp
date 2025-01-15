@@ -31,14 +31,14 @@ public:
     }
 };  
 
-class HeatingSystem {
+class Boiler {
 public:
     void turnOn() {
-        std::cout << "Heating system turned on." << std::endl;
+        std::cout << "Boiler turned on." << std::endl;
     }
 
     void turnOff() {
-        std::cout << "Heating system turned off." << std::endl;
+        std::cout << "Boiler turned off." << std::endl;
     }
 
 };
@@ -54,44 +54,40 @@ public:
         return currentTemperature;
     }
 
-    void heatingOnOff(Thermostat thermostat, HeatingSystem heating) {
+    void boilerOnOff(Thermostat thermostat, Boiler boiler) {
         if (thermostat.getCurrentTemperature() < 20.0) {
-            heating.turnOn();
+            boiler.turnOn();
         }
         else {
-            heating.turnOff();
+            boiler.turnOff();
         }
     }
 };
 
 
-class Book {
+class Library {
 private:
     std::string title;
-    bool isAvailable;
+    bool bookIsAvailable;
 
 public:
-    Book(const std::string& title) : title(title), isAvailable(true) {}
+    Library(const std::string& title) : title(title), bookIsAvailable(true) {}
 
     bool checkAvailability() const {
-        return isAvailable;
+        return bookIsAvailable;
     }
 
     void borrowBook() {
-        isAvailable = false;
+        bookIsAvailable = false;
     }
 
     void returnBook() {
-        isAvailable = true;
+        bookIsAvailable = true;
     }
-};
 
-class Library {
-public:
-    void processBookBorrowing(Book& book) {
-        // Violates Tell, Don't Ask
-        if (book.checkAvailability()) {
-            book.borrowBook();
+    void processBookBorrowing(Library& library) {
+        if (library.checkAvailability()) {
+            library.borrowBook();
             std::cout << "Book borrowed successfully." << std::endl;
         }
         else {
@@ -153,18 +149,16 @@ int main() {
     //////////////////////////////////////////////////////////////////
 
     Thermostat thermostat(18.5);
-    HeatingSystem heating;
-    thermostat.heatingOnOff(thermostat, heating);
+    Boiler boiler;
+    thermostat.boilerOnOff(thermostat, boiler);
     
     //////////////////////////////////////////////////////////////////
     // Exercise 3
     //////////////////////////////////////////////////////////////////
 
-    Book myBook("1984");
-    Library library;
-
-    library.processBookBorrowing(myBook);  // First borrow should succeed
-    library.processBookBorrowing(myBook);  // Second attempt should show not available
+    Library myBook("1984");
+    myBook.processBookBorrowing(myBook);  // First borrow should succeed
+    myBook.processBookBorrowing(myBook);  // Second attempt should show not available
 
     //////////////////////////////////////////////////////////////////
     // Exercise 4
